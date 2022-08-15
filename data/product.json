@@ -1,0 +1,52 @@
+[
+    {
+        "nameProduct": "Micellar water Vitamin C",
+        "imageProduct": "https://images.soco.id/3218cebe-60c7-4e10-ba7d-11c3e3e73876-image-0-1614314444254",
+        "price": 99000,
+        "weight": 100,
+        "skinCategory": "Oily Skin",
+        "productCategory": "Cleanser",
+        "description": "Garnier Micellar Cleansing Water Vitamin C adalah pembersih wajah (cleanser) dengan kandungan vitamin C untuk menghapus makeup, membersihkan wajah, dan mencerahkan wajah kusam",
+        "BrandId": 2
+    },
+    {
+        "nameProduct": "Emina Bright Stuff 50ml Face Wash",
+        "imageProduct": "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/1/9/7a8f559c-6b7a-42fb-9b1f-de008c4e441e.jpg",
+        "price": 25000,
+        "weight": 60,
+        "skinCategory": "Dry Skin",
+        "productCategory": "Cleanser",
+        "description": "Pembersih wajah Mengandung ekstrak summer plum sebagai anti pollutant Mengandung vitamin B3 dan bahan pencerah lain Untuk membuat kulit terasa bersih, terhidrasi dan cerah merona",
+        "BrandId": 1
+    },
+    {
+        "nameProduct": "Avoskin Intensive Miraculous Refining Serum / Retinol Ampoule 30mL",
+        "imageProduct": "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/2/18/93715ab0-4135-4f01-8cf1-71a51f726cdb.jpg",
+        "price": 200000,
+        "weight": 70,
+        "skinCategory": "Sensitive Skin",
+        "productCategory": "Serum",
+        "description": "Mengandung 10% AHA + 3%BHA + 2% Niacinamide dan Ceramide. Memiliki kandungan tambahan yaitu Hyaluronic acid crosspolymer, vitamin B5, black carrot, dan tasmanian raspberry yg berfungsi untuk melembapkan kulit",
+        "BrandId": 4
+    },
+    {
+        "nameProduct": "Wardah Hydra Rose Moisture Rich Night Gel 17 ml",
+        "imageProduct": "https://images.tokopedia.net/img/cache/900/VqbcmM/2021/10/3/5817475b-6901-4d78-93f3-398f34c6c00b.jpg",
+        "price": 35000,
+        "weight": 250,
+        "skinCategory": "Dry Skin",
+        "productCategory": "Moisturizer",
+        "description": "Moisturizer pagi dengan tekstur gel ringan dan watery mengandung 72 Hours (Berdasarkan active in vitro test) Hydrating Active dan Avalanche Rose Oil yang menghidrasi serta menjaga kelembapan kulit",
+        "BrandId": 3
+    },
+    {
+        "nameProduct": "SOMETHINC Holyshield! UV Watery Sunscreen Gel SPF 50+ PA++++ 15 gr",
+        "imageProduct": "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/5/24/85f3746d-72ef-44a8-893a-267335e4c0b7.jpg",
+        "price": 45000,
+        "weight": 100,
+        "skinCategory": "All Skin",
+        "productCategory": "Sunscreen",
+        "description": "5-in-1 Cooling Aqua Protection Sunscreen Gel dengan SPF 50+ PA++++ & teknologi Encapsulated UV Filter yang memberikan proteksi lebih maksimal dari sinar UVA & UVB",
+        "BrandId": 5
+    }
+]
