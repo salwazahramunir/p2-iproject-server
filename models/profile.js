@@ -11,15 +11,46 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Profile.belongsTo(models.User, { foreignKey: "UserId" })
     }
   }
   Profile.init({
-    imageUser: DataTypes.STRING,
-    fullName: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
-    phoneNumber: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    imageUser: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    fullName: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    gender: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    }, 
+    dateOfBirth: {
+      allowNull: true,
+      type: DataTypes.DATE,
+    }, 
+    phoneNumber: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    },
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: "UserId is required"
+        },
+        notNull: {
+          msg: "UserId is required"
+        }
+      }
+    },
+    publicIdImage: {
+      allowNull: true,
+      type: DataTypes.STRING,
+    }
   }, {
     sequelize,
     modelName: 'Profile',
