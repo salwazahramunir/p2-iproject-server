@@ -37,7 +37,11 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Logo brand is required"
         }
       }
-    } 
+    },
+    publicIdLogo: {
+      allowNull: true,
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'Brand',

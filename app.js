@@ -3,13 +3,23 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require('express')
 const app = express()
-const port = 3000
 const router = require('./router/index')
+const cloudinary = require('cloudinary').v2
+const fileupload = require('express-fileupload')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(router)
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_USER_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true
+});
+app.use(fileupload({
+  useTempFiles: true
+}))
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+app.use(router)
+module.exports = {
+  app
+}
