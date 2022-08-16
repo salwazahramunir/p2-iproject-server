@@ -19,6 +19,10 @@ function errorHandler(error, req, res, next) {
         res.status(401).json({
             message: "Invalid token"
         })
+    } else if (error.name === "NotFound") {
+        res.status(404).json({
+            message: "Data not found"
+        })
     } else {
         res.status(500).json({
             message: "Internal server error"
