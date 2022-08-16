@@ -1,3 +1,4 @@
+const { uploadToCloudinary, deleteToCloudinary } = require('../helper/cloudinary')
 const { User, Profile } = require('../models/index')
 
 class UserController {
@@ -16,6 +17,29 @@ class UserController {
             next(error)
         }
     }   
+
+    static async addUser(req, res, next) {
+        try {
+            const { username, email, password, role } = req.body
+
+            const newUser = await User.create({ username, email, password, role })
+
+            const newProfile = await Profile.create({ UserId: newUser.id })
+
+            res.status(201).json({
+                message: `Success created ${newUser.username}`,
+                data: {
+                    id: newUser.id,
+                    username: newUser.username,
+                    role: newUser.role,
+                    UserId: newProfile.UserId
+                }
+            })
+            
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController
