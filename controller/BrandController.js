@@ -108,6 +108,30 @@ class BrandController {
             next(error)
         }
     }
+
+    static async deleteBrand(req, res, next) {
+        try {
+            const { brandId } = req.params
+
+            const findBrand = await Brand.findByPk(+brandId)
+
+            if (!findBrand) {
+                throw { name: "NotFound" }
+            }
+
+            const deleteBrand = await Brand.destroy({ where: { id: brandId } })
+            
+            if (deleteBrand) {
+                await deleteToCloudinary(findBrand.publicIdLogo, 'p2-individual-project/logo-brand')
+            }
+
+            res.status(200).json({
+                message: `Success deleted ${findBrand.nameBrand}`
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = BrandController
