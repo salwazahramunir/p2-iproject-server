@@ -36,7 +36,17 @@ class ProductController {
 
             res.status(201).json({
                 message: `Success created ${newProduct.nameProduct}`,
-                data: newProduct
+                data: {
+                    id: newProduct.id,
+                    nameProduct: newProduct.nameProduct,
+                    imageProduct: newProduct.imageProduct,
+                    price: newProduct.price,
+                    weight: newProduct.weight,
+                    skinCategory: newProduct.skinCategory,
+                    productCategory: newProduct.productCategory,
+                    description: newProduct.description,
+                    BrandId: newProduct.BrandId
+                }
             })
         } catch (error) {
             next(error)
@@ -89,7 +99,7 @@ class ProductController {
                     skinCategory: findProduct.skinCategory,
                     productCategory: findProduct.productCategory,
                     description: findProduct.description,
-                    BrandId: findProduct.BrandId,
+                    BrandId: findProduct.BrandId
                 }
             })
         } catch (error) {
