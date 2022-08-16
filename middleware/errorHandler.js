@@ -7,6 +7,14 @@ function errorHandler(error, req, res, next) {
         res.status(400).json({
             message: "Invalid Username or Email or Password"
         })
+    } else if (error.name === "InvalidFormatFile") {
+        res.status(400).json({
+            message: "Input file must be jpg, jpeg or png format"
+        })
+    } else if (error.name === "FileIsRequired") {
+        res.status(400).json({
+            message: "File is required"
+        })
     } else if (error.name === "NoToken") {
         res.status(401).json({
             message: "Please login first"
