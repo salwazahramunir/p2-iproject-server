@@ -90,6 +90,24 @@ class BrandController {
             next(error)
         }
     }
+
+    static async showBrand(req, res, next) {
+        try {
+            const { brandId } = req.params
+
+            const findBrand = await Brand.findByPk(+brandId, {
+                attributes: {exclude:  ["createdAt", "updatedAt", "publicIdLogo"]}
+            })
+
+            if (!findBrand) {
+                throw { name: "NotFound" }
+            }
+
+            res.status(200).json(findBrand)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = BrandController
