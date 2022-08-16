@@ -107,6 +107,24 @@ class ProductController {
             next(error)
         }
     }
+
+    static async showProduct(req, res, next) {
+        try {
+            const { productId } = req.params
+
+            const findProduct = await Product.findByPk(+productId, {
+                attributes: {exclude:  ["createdAt", "updatedAt", "publicIdImage"]}
+            })
+
+            if (!findProduct) {
+                throw { name: "NotFound" }
+            }
+
+            res.status(200).json(findProduct)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = ProductController
