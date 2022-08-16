@@ -125,6 +125,30 @@ class ProductController {
             next(error)
         }
     }
+
+    static async deleteProduct(req, res, next) {
+        try {
+            const { productId } = req.params
+
+            const findProduct = await Product.findByPk(+productId)
+
+            if (!findProduct) {
+                throw { name: "NotFound" }
+            }
+
+            const deleteProduct = await Product.destroy({ where: { id: +productId } })
+            
+            if (deleteProduct) {
+                await deleteToCloudinary(findProduct.publicIdImage, 'p2-individual-project/image-product')
+            }
+
+            res.status(200).json({
+                message: `Success deleted ${findProduct.nameProduct}`
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = ProductController
