@@ -32,10 +32,41 @@ class UserController {
                     id: newUser.id,
                     username: newUser.username,
                     role: newUser.role,
-                    UserId: newProfile.UserId
+                    ProfileId: newProfile.id
                 }
             })
             
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async updateUser(req, res, next) {
+        try {
+            const { userId } = req.params
+            const { username, email, password, role } = req.body
+
+            let findUser = await User.findByPk(+userId)
+
+            if (!findUser) {
+                throw { name: "NotFound" }
+            }
+
+            await User.update({ username, email, password, role }, { where: { id: userId } })
+            
+            findUser = await User.findByPk(+userId)
+
+            const findProfile = await Profile.findOne({ where: { UserId: +userId } })
+
+            res.status(200).json({
+                message: `Success updated ${findUser.username}`,
+                data: {
+                    id: findUser.id,
+                    username: findUser.username,
+                    role: findUser.role,
+                    UserId: findProfile.id
+                }
+            })
         } catch (error) {
             next(error)
         }
