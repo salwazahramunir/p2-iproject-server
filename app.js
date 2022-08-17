@@ -4,9 +4,11 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express')
 const app = express()
 const router = require('./router/index')
+const cors = require('cors')
 const cloudinary = require('cloudinary').v2
 const fileupload = require('express-fileupload')
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 cloudinary.config({ 
