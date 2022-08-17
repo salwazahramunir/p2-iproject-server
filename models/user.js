@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasOne(models.Profile, { foreignKey: "UserId" })
     }
   }
   User.init({
@@ -76,6 +77,10 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate(instance, option) {
         instance.password = hashPassword(instance.password)
+      },
+      beforeUpdate(instance, option) {
+        // console.log("aaaaaaa");
+        // instance.attributes.password = hashPassword(instance.attributes.password)
       }
     },
     sequelize,
