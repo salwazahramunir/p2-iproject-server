@@ -15,7 +15,7 @@ router.use('/brands', brandRouter)
 router.use('/products', productRouter)
 router.use('/users', userRouter)
 
-router.use('/profiles', profileRouter)
+router.use('/publics/profiles', profileRouter)
 
 router.use(errorHandler)
 
