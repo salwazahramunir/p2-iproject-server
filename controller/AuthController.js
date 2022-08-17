@@ -25,15 +25,13 @@ class AuthController {
 
     static async login(req, res, next) {
         try {  
-            const { username, email, password } = req.body
+            const { email, password } = req.body
             let findUser = {};
 
-            if (!username) {
-                findUser = await User.findOne({ where: { email } })
-            }
-
-            if (!email) {
-                findUser = await User.findOne({ where: { username } })
+            findUser = await User.findOne({ where: { email }})
+            
+            if (!findUser) {
+                findUser = await User.findOne({ where: { username: email }})
             }
     
             if (!findUser) {
