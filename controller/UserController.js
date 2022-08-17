@@ -98,6 +98,26 @@ class UserController {
             next(error)
         }
     }
+
+    static async deleteUser(req, res, next) {
+        try {
+            const { userId } = req.params
+
+            const findUser = await User.findByPk(+userId)
+
+            if (!findUser) {
+                throw { name: "NotFound" }
+            }
+
+            await User.destroy({ where: { id: userId } })
+
+            res.status(200).json({
+                message: `Success deleted ${findUser.username}`
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController
