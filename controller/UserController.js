@@ -71,6 +71,33 @@ class UserController {
             next(error)
         }
     }
+
+    static async showUser(req, res, next) {
+        try {
+            const { userId } = req.params
+
+            const findUser = await User.findByPk(+userId, {
+                attributes: {exclude:  ["password", "createdAt", "updatedAt"]}
+            })
+
+            if (!findUser) {
+                throw { name: "NotFound" }
+            }
+
+            const findProfile = await Profile.findOne({ where: { UserId: +userId } })
+
+            res.status(200).json({
+                 data: {
+                    id: findUser.id,
+                    username: findUser.username,
+                    role: findUser.role,
+                    UserId: findProfile.id
+                }
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController
