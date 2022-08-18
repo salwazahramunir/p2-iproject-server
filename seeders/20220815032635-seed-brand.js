@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let brands = JSON.parse(fs.readFileSync('./data/brand.json', 'utf-8'))
+    let brands = JSON.parse(fs.readFileSync('./data/Brand.json', 'utf-8'))
     brands.forEach(brand => {
       brand.createdAt = new Date()
       brand.updatedAt = new Date()
