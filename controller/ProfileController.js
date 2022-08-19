@@ -4,21 +4,21 @@ const { User, Profile } = require('../models/index')
 class ProfileController {
     static async showProfile(req, res, next) {
         try {
-            const { profileId } = req.params
+            const { id } = req.user
 
-            const findProfile = await Profile.findByPk(+profileId, {
+            let findUser = await User.findByPk(+id, {
                 include: [{
-                    model: User,
-                    attributes: { exclude: ["password", "createdAt", "updatedAt"] }
+                    model: Profile,
+                    attributes: { exclude: ["createdAt", "updatedAt"] }
                 }],
-                attributes: { exclude: ["createdAt", "updatedAt", "publicIdImage"] }
+                attributes: { exclude: ["password", "createdAt", "updatedAt"] }
             })
 
-            if (!findProfile) {
+            if (!findUser) {
                 throw { name: "NotFound" }
             }
 
-            res.status(200).json(findProfile)
+            res.status(200).json(findUser)
         } catch (error) {
             next(error)
         }
@@ -26,17 +26,17 @@ class ProfileController {
 
     static async updateProfile(req, res, next) {
         try {
-            const { profileId } = req.params
+            const { id } = req.user
             
-            let findProfile = await Profile.findByPk(+profileId, {
+            let findUser = await User.findByPk(+id, {
                 include: [{
-                    model: User,
+                    model: Profile,
                     attributes: { exclude: ["createdAt", "updatedAt"] }
                 }],
-                attributes: { exclude: ["createdAt", "updatedAt"] }
+                attributes: { exclude: ["password", "createdAt", "updatedAt"] }
             })
-            
-            if (!findProfile) {
+
+            if (!findUser) {
                 throw { name: "NotFound" }
             }
             
@@ -47,12 +47,12 @@ class ProfileController {
 
             if (!file) {
                 file = {
-                    tempFilePath: findProfile.imageUser
+                    tempFilePath: findUser.Profile.imageUser
                 }
 
                 dataCloudinary = {
-                    secure_url: findProfile.imageUser,
-                    public_id: findProfile.publicIdImage
+                    secure_url: findUser.Profile.imageUser,
+                    public_id: findUser.Profile.publicIdImage
                 }
             } else {
                 file = req.files.imageUser
@@ -66,32 +66,34 @@ class ProfileController {
             }
 
             if (!password) {
-                password = findProfile.User.password
+                password = findUser.password
             }
 
-            await User.update({ username, email, password }, { where: { id: findProfile.UserId } })
-            await Profile.update({ imageUser: dataCloudinary.secure_url, publicIdImage: dataCloudinary.public_id, fullName, gender, dateOfBirth, phoneNumber }, { where: { id: profileId }})
+            await User.update({ username, email, password }, { where: { id }, individualHooks: true })
+            await Profile.update({ imageUser: dataCloudinary.secure_url, publicIdImage: dataCloudinary.public_id, fullName, gender, dateOfBirth, phoneNumber }, { where: { id: findUser.Profile.id }})
             
-            if (file.name && findProfile.publicIdImage) {
-                await deleteToCloudinary(findProfile.publicIdImage, 'p2-individual-project/image-user')
+            if (file.name && findUser.Profile.publicIdImage) {
+                await deleteToCloudinary(findUser.Profile.publicIdImage, 'p2-individual-project/image-user')
             }
 
-            findProfile = await Profile.findByPk(+profileId, {
+            findUser = await User.findByPk(+id, {
                 include: [{
-                    model: User,
-                    attributes: { exclude: ["password", "createdAt", "updatedAt"] }
+                    model: Profile,
+                    attributes: { exclude: ["createdAt", "updatedAt"] }
                 }],
-                attributes: { exclude: ["createdAt", "updatedAt", "publicIdImage"] }
-            })
+                attributes: { exclude: ["password", "createdAt", "updatedAt"] }
+            }) 
 
             res.status(200).json({
                 message: "Success updated profile",
-                data: findProfile
+                data: findUser
             })
         } catch (error) {
             next(error)
         }
     }
+
+
 }
 
 module.exports = ProfileController
