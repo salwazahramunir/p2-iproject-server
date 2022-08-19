@@ -2,9 +2,8 @@ const { User, Profile } = require('../models/index')
 async function isProfileUserLogin(req, res, next) {
     try {
         const { id } = req.user
-        const { profileId } = req.params
-
-        const findProfile = await Profile.findOne({ where: { id: profileId} })
+        
+        const findProfile = await Profile.findOne({ where: { UserId: +id} })
 
         if (findProfile.UserId !== id) {
             throw { name: "Forbidden" }
@@ -12,7 +11,6 @@ async function isProfileUserLogin(req, res, next) {
 
         next()
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }
